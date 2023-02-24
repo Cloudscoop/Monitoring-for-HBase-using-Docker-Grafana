@@ -12,6 +12,7 @@ HBase 2.0-alpha4
 docker-compose -f build-images.yml build
 
 **How To Start Container**
+
 docker-compose up -d
 
 And you would get the list of containers:
@@ -19,7 +20,9 @@ And you would get the list of containers:
 Check using docker ps comamnd
 
 master
+
 slave1
+
 slave2
 
 
@@ -49,6 +52,7 @@ Note: {hostip} is the ip of your host node. If your host ip is 192.168.1.78, you
 ******Troubleshooting:******
 
 **How To Starting All Containers After Stop**
+
 docker-compose start
 
 
