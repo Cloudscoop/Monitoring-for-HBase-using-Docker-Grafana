@@ -65,23 +65,31 @@ Note: {Public IP} is the ip of your host node. If your host ip is 192.168.1.78, 
 #**Get Data into HBase for testing:
 Log into Master using ,`docker exec -it master bash`
 
-hdfs dfs -ls /
+`hdfs dfs -ls /`
+
 vi importsv
-rowkey000000000,Test1,Test2,Test3,Test4,Test5,Test6,Test7,Test8,Test9,Test10
-hdfs dfs -copyFromLocal importsv /tmp/
-hdfs dfs -ls /tmp/
+
+`rowkey000000000,Test1,Test2,Test3,Test4,Test5,Test6,Test7,Test8,Test9,Test10`
+
+`hdfs dfs -copyFromLocal importsv /tmp/`
+
+`hdfs dfs -ls /tmp/`
     
-hbase shell
+
+`hbase shell`
     
-create 'bktable', {NAME => 'cf'},   {SPLITS => ['rowkey033333333', 'rowkey066666666']}
+
+`> create 'bktable', {NAME => 'cf'},   {SPLITS => ['rowkey033333333', 'rowkey066666666']}
     
-list
-exit
-     
-hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.columns=HBASE_ROW_KEY,cf:c1,cf:c2,cf:c3,cf:c4,cf:c5,cf:c6,cf:c7,cf:c8,cf:c9,cf:c10 -Dimporttsv.skip.bad.lines=false '-Dimporttsv.separator=,' -Dimporttsv.bulk.output=hdfs://master:9000/tmp/bktableoutput bktable hdfs://master:9000/tmp/importsv
+> list
+
+> exit
+`     
+
+`hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.columns=HBASE_ROW_KEY,cf:c1,cf:c2,cf:c3,cf:c4,cf:c5,cf:c6,cf:c7,cf:c8,cf:c9,cf:c10 -Dimporttsv.skip.bad.lines=false '-Dimporttsv.separator=,' -Dimporttsv.bulk.output=hdfs://master:9000/tmp/bktableoutput bktable hdfs://master:9000/tmp/importsv`
 
 
-hbase org.apache.hadoop.hbase.tool.LoadIncrementalHFiles hdfs://master:9000/tmp/bktableoutput bktable
+`hbase org.apache.hadoop.hbase.tool.LoadIncrementalHFiles hdfs://master:9000/tmp/bktableoutput bktable`
 
-hbase shell
-list
+`hbase shell`
+ `> list`
